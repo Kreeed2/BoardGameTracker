@@ -1,0 +1,14 @@
+{
+  "projectPath": ".",
+  "containerRegistry": "https://git.krampitz.work",
+  "containerImageTags": [
+    "latest"
+  ],
+  "containerBuilder": "docker",
+  "outputFormat": "kustomize",
+  "secrets": {
+    "salt": "I6oFwVlw6eGRZ90r",
+    "hash": "RZJJmxTVMFO03wq6SJT1YBF\u002BkCh5NiakGBEWBJRQ9Fo=",
+    "secrets": {}
+  }
+}
