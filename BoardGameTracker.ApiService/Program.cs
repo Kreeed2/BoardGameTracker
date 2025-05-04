@@ -12,6 +12,9 @@ builder.Services.AddProblemDetails();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi  
 builder.Services.AddOpenApi();
 
+// Add authentication and authorization services
+builder.Services.AddScoped<AuthService>();
+
 // Add PostgreSQL database context  
 builder.AddNpgsqlDbContext<BoardGameTrackerDbContext>("postgresdb");
 
@@ -47,6 +50,15 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+var userGroup = app.MapGroup("api/user").WithTags("User");
+
+userGroup.MapGet("/{email}", async (string email, AuthService authService) =>
+{
+    return await authService.AuthenticateUserAsync(email, "");
+})
+    .WithTags("User")
+    .WithName("GetUser");
 
 app.MapDefaultEndpoints();
 

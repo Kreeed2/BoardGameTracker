@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoardGameTracker.ServiceDefaults\BoardGameTracker.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\BoardGameTracker.Shared\BoardGameTracker.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
