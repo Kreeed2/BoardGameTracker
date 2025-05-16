@@ -1,19 +1,22 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
-    <link rel="stylesheet" href="@Assets["app.css"]" />
+    @* Einbindung von Tailwind CSS über CDN *@
+    <script src="https://cdn.tailwindcss.com"></script>
+    @* Einbindung der Schriftart "Inter" von Google Fonts *@
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="@Assets["styles.css"]" />
     <link rel="stylesheet" href="@Assets["BoardGameTracker.Web.styles.css"]" />
     <ImportMap />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
 </head>
 
-<body>
+<body class="bg-gray-100 text-gray-900 antialiased">
     <Routes />
     <script src="_framework/blazor.web.js"></script>
 </body>

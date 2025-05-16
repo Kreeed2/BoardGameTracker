@@ -5,9 +5,13 @@ var builder = DistributedApplication.CreateBuilder(args);
 var cache = builder.AddRedis("cache");
 
 var databaseName = "postgresdb";
-var creationScript = $$"""
+var creationScript = $"""
     -- Create the database
-    CREATE DATABASE "{{databaseName}}";
+    IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{databaseName}')
+    BEGIN
+      CREATE DATABASE {databaseName};
+    END;
+    GO
     """;
 
 var database = builder.AddPostgres("database")
@@ -15,14 +19,20 @@ var database = builder.AddPostgres("database")
    .AddDatabase(databaseName)
    .WithCreationScript(creationScript);
 
+var keycloak = builder.AddKeycloak("keycloak", 8080)
+    .WithDataVolume();
+
 var apiService = builder.AddProject<Projects.BoardGameTracker_ApiService>("apiservice")
     .WithReference(database)
-    .WaitFor(database);
+    .WaitFor(database)
+    .WithReference(keycloak)
+    .WaitFor(keycloak);
 
 builder.AddProject<Projects.BoardGameTracker_Web>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WaitFor(cache)
+    .WithReference(keycloak)
     .WithReference(apiService)
     .WaitFor(apiService);
 

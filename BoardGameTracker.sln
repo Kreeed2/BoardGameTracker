@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6102314C-79C5-4C5E-BBED-E23ED288A78B}"
 	ProjectSection(SolutionItems) = preProject
 		aspirate.json = aspirate.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGameTracker.Shared", "BoardGameTracker.Shared\BoardGameTracker.Shared.csproj", "{C3832146-CD23-4910-A381-21AE57CAD44D}"

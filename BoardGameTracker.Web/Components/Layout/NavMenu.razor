@@ -1,29 +1,16 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BoardGameTracker</a>
+﻿@* Navigationsmenü auf der linken Seite *@
+<nav class="flex shrink-0 flex-col space-y-6 overflow-y-auto bg-gray-800 p-6 text-gray-100 md:w-64 md:sticky md:top-0 md:h-screen">
+    @* Logo oder App-Name *@
+    <div class="mb-10 flex-none text-center text-2xl font-semibold text-white md:text-left">
+        Brettspiel Zähler
     </div>
-</div>
+    @* Navigationslinks *@
+    <ul class="flex-grow space-y-2">
+        <li><a href="/" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Startseite</a></li>
+        <li><a href="#features" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Funktionen</a></li>
+        <li><a href="/zaehlvorlage-erstellen" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Vorlage erstellen</a></li>
+        <li><a href="#kontakt" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Kontakt (Beispiel)</a></li>
+    </ul>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
+    <Footer />
+</nav>
