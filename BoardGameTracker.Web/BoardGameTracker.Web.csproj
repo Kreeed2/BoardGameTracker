@@ -15,27 +15,15 @@
     <Content Include="tailwind.config.js" />
   </ItemGroup>
 
-  <Target Name="Tailwind" BeforeTargets="Compile">
-    <Exec Command="npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/styles.css" />
-  </Target>
-
-  <ItemGroup>
-    <Watch Include="./Styles/tailwind.css" Exclude="./wwwroot/**/*;obj\**\*;bin\**\*" />
-  </ItemGroup>
-
-  <Target Name="TailwindRelease" BeforeTargets="Compile" Condition="'$(Configuration)' == 'Release'">
-    <Exec EnvironmentVariables="NODE_ENV=production" Command="npx tailwindcss -i ./Styles/tailwind.css -o ./wwwroot/tailwind.css --minify" />
-  </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\BoardGameTracker.ServiceDefaults\BoardGameTracker.ServiceDefaults.csproj" />
     <ProjectReference Include="..\BoardGameTracker.Shared\BoardGameTracker.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Keycloak.Authentication" Version="9.2.1-preview.1.25222.1" />
-    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.4" />
+    <PackageReference Include="Aspire.Keycloak.Authentication" Version="9.3.0-preview.1.25265.20" />
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="9.0.5" />
   </ItemGroup>
 
 </Project>

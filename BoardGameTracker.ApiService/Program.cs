@@ -1,5 +1,6 @@
-using BoardGameTracker.ApiService;
+﻿using BoardGameTracker.ApiService;
 using Microsoft.EntityFrameworkCore;
+using BoardGameTracker.ApiService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Services.AddAuthentication()
                         options.Audience = "boardgame.api";
                     });
 
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddAuthorizationBuilder();
+
 var app = builder.Build();
 
 // Ensure database migrations are applied  
@@ -43,5 +48,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapDefaultEndpoints();
+
+app.MapGameEndpoints();
 
 app.Run();

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BoardGameTracker.ApiService.Model
 {
-    public class Player : BaseModel
+    public class Player
     {
         [Key]
         public int PlayerId { get; set; }
@@ -11,6 +12,6 @@ namespace BoardGameTracker.ApiService.Model
         [MaxLength(100)]
         public required string Name { get; set; }
 
-        //public ICollection<Score> Scores { get; } = new List<Score>();
+        public ICollection<Score> Scores { get; } = new List<Score>();
     }
 }

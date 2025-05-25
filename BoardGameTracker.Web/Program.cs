@@ -1,7 +1,9 @@
 using BoardGameTracker.Web;
 using BoardGameTracker.Web.Components;
+using BoardGameTracker.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -18,12 +20,11 @@ builder.Services.AddRazorComponents()
 builder.Services.AddHttpContextAccessor()
                 .AddTransient<AuthorizationHandler>();
 
-builder.Services.AddHttpClient<WeatherApiClient>(client =>
+builder.Services.AddHttpClient<GameApiClient>(client =>
     {
-        // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
-        // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
         client.BaseAddress = new("https+http://apiservice");
-    });
+    })
+    .AddHttpMessageHandler<AuthorizationHandler>();
 
 var oidcScheme = OpenIdConnectDefaults.AuthenticationScheme;
 

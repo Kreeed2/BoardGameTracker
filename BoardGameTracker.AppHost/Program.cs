@@ -4,20 +4,9 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedis("cache");
 
-var databaseName = "postgresdb";
-var creationScript = $"""
-    -- Create the database
-    IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{databaseName}')
-    BEGIN
-      CREATE DATABASE {databaseName};
-    END;
-    GO
-    """;
-
 var database = builder.AddPostgres("database")
    .WithDataVolume(isReadOnly: false)
-   .AddDatabase(databaseName)
-   .WithCreationScript(creationScript);
+   .AddDatabase("postgresdb");
 
 var keycloak = builder.AddKeycloak("keycloak", 8080)
     .WithDataVolume();

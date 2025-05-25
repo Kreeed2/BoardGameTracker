@@ -10,7 +10,7 @@ namespace BoardGameTracker.ApiService.Model
         //public required Player CreatedBy { get; set; } = null!;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
         //public Player? UpdatedBy { get; set; }
     }

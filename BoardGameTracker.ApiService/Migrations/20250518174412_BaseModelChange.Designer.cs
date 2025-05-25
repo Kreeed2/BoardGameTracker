@@ -3,6 +3,7 @@ using System;
 using BoardGameTracker.ApiService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoardGameTracker.ApiService.Migrations
 {
     [DbContext(typeof(BoardGameTrackerDbContext))]
-    partial class BoardGameTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250518174412_BaseModelChange")]
+    partial class BaseModelChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

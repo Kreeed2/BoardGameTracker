@@ -1,0 +1,35 @@
+﻿@page "/game"
+
+@using BoardGameTracker.Shared.DataTransferObjects
+@using BoardGameTracker.Web.Services
+
+@inject GameApiClient GameService;
+@inject NavigationManager NavigationManager;
+
+<PageTitle>Available Games</PageTitle>
+
+<ul>
+	@foreach (var game in mGames)
+	{
+		<li class="m-2 grid grid-cols-4 border p-2">
+			<img class="col-start-1 col-end-2" src="https://placehold.co/50x50" alt="@game.Name" />
+			<div class="col-span-4 col-start-2">
+				<a href="/game/@game.GameId">@game.Name</a>
+				@* <p>@game.Description</p> *@
+				<p>
+					<span> Created: @game.CreatedAt</span>
+					<span> Updated: @game.UpdatedAt</span>
+				</p>
+			</div>
+		</li>
+	}
+</ul>
+
+@code {
+	public IEnumerable<GameTransferObject> mGames { get; set; } = new List<GameTransferObject>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		mGames = await GameService.GetGamesAsync();
+	}
+}
