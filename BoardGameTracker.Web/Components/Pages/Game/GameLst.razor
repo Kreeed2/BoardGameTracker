@@ -4,24 +4,38 @@
 @using BoardGameTracker.Web.Services
 
 @inject GameApiClient GameService;
-@inject NavigationManager NavigationManager;
 
 <PageTitle>Available Games</PageTitle>
 
-<ul>
+<ul class="p-20">
 	@foreach (var game in mGames)
 	{
-		<li class="m-2 grid grid-cols-4 border p-2">
-			<img class="col-start-1 col-end-2" src="https://placehold.co/50x50" alt="@game.Name" />
-			<div class="col-span-4 col-start-2">
-				<a href="/game/@game.GameId">@game.Name</a>
-				@* <p>@game.Description</p> *@
-				<p>
-					<span> Created: @game.CreatedAt</span>
-					<span> Updated: @game.UpdatedAt</span>
-				</p>
+		<a href="/game/@game.GameId">
+		<li class="mb-4 rounded-xl bg-white p-6 shadow-lg md:p-8" @key="game.GameId">
+			<div class="flex flex-col items-center gap-6 md:flex-row md:items-start">
+				<img src="https://placehold.co/192x192/a0aec0/ffffff?text=Game+Image" alt="@game.Name" class="h-32 w-32 rounded-lg object-cover shadow-md md:w-48 md:h-48">
+
+				<div class="flex-1 text-center md:text-left">
+					<h1 class="mb-2 text-3xl font-extrabold text-indigo-700 md:text-4xl" id="game-name">
+							@game.Name
+					</h1>
+
+					<p class="mb-4 text-sm text-gray-500">
+						Erstellt am:
+						<span class="font-medium" id="creation-date">
+								@game.CreatedAt
+						</span>
+					</p>
+					<p hidden="!@game.UpdatedAt.HasValue" class="mb-4 text-sm text-gray-500">
+						Geändert am:
+						<span class="font-medium" id="creation-date">
+								@game.UpdatedAt
+						</span>
+					</p>
+				</div>
 			</div>
 		</li>
+		</a>
 	}
 </ul>
 
