@@ -12,6 +12,8 @@ namespace BoardGameTracker.ApiService.Model
         [MaxLength(100)]
         public required string Name { get; set; }
 
-        public ICollection<Score> Scores { get; } = new List<Score>();
+        public bool IsRegistered { get; set; } = false;
+
+        public ICollection<Score> Scores { get; } = [];
     }
 }

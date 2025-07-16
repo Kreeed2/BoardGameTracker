@@ -1,0 +1,22 @@
+﻿@page "/score/{mGameId:int}"
+
+@using BoardGameTracker.Shared.DataTransferObjects
+@using BoardGameTracker.Web.Services
+
+@inject GameApiClient GameService;
+
+<PageTitle>Punkte erfassen</PageTitle>
+
+
+
+@code {
+	[Parameter]
+	public int mGameId { get; set; }
+
+	public GameTransferObject? mGame { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		mGame = await GameService.GetGameByIdAsync(mGameId);
+	}
+}

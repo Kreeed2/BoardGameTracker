@@ -25,10 +25,10 @@ public static class GameEndpoints
         .WithName("GetAllGames")
         .WithOpenApi();
 
-        group.MapGet("/{id:int}", async Task<Results<Ok<GameTransferObject>, NotFound>> (int gameid, BoardGameTrackerDbContext db) =>
+        group.MapGet("/{gameId:int}", async Task<Results<Ok<GameTransferObject>, NotFound>> (int gameId, BoardGameTrackerDbContext db) =>
         {
             return await db.Games.AsNoTracking()
-                .FirstOrDefaultAsync(model => model.GameId == gameid)
+                .FirstOrDefaultAsync(model => model.GameId == gameId)
                 is Game model
                     ? TypedResults.Ok(new GameTransferObject { Name = model.Name, GameId = model.GameId, CreatedAt = model.CreatedAt, UpdatedAt = model.UpdatedAt })
                     : TypedResults.NotFound();
@@ -36,10 +36,10 @@ public static class GameEndpoints
         .WithName("GetGameById")
         .WithOpenApi();
 
-        group.MapPut("/{id:int}", async Task<Results<Ok, NotFound>> (int gameid, GameTransferObject game, BoardGameTrackerDbContext db) =>
+        group.MapPut("/{gameId:int}", async Task<Results<Ok, NotFound>> (int gameId, GameTransferObject game, BoardGameTrackerDbContext db) =>
         {
             var affected = await db.Games
-                .Where(model => model.GameId == gameid)
+                .Where(model => model.GameId == gameId)
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(m => m.Name, game.Name)
                     .SetProperty(m => m.UpdatedAt, DateTime.UtcNow)
@@ -61,10 +61,10 @@ public static class GameEndpoints
         .WithOpenApi()
         .RequireAuthorization();
 
-        group.MapDelete("/{id:int}", async Task<Results<Ok, NotFound>> (int gameid, BoardGameTrackerDbContext db) =>
+        group.MapDelete("/{gameId:int}", async Task<Results<Ok, NotFound>> (int gameId, BoardGameTrackerDbContext db) =>
         {
             var affected = await db.Games
-                .Where(model => model.GameId == gameid)
+                .Where(model => model.GameId == gameId)
                 .ExecuteDeleteAsync();
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
