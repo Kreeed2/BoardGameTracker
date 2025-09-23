@@ -8,21 +8,10 @@
     </div>
     @* Navigationslinks *@
     <ul class="flex-grow space-y-2">
-        <li><a href="/" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Home</a></li>
+        <li><NavLink href="" Match="NavLinkMatch.All" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Home</NavLink></li>
     </ul>
     <ul class="flex-grow space-y-2">
-        <AuthorizeView>
-            <Authorized>
-                <li>
-                    <a href="/authentication/logout" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Logout</a>
-                </li>
-            </Authorized>
-            <NotAuthorized>
-                <li>
-                    <a href="/authentication/login" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Login</a>
-                </li>
-            </NotAuthorized>
-        </AuthorizeView>
+        <li><NavLink class="nav-link" href="/account" Match="NavLinkMatch.All">Account</NavLink></li>
     </ul>
 
     <Footer />

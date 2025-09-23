@@ -14,7 +14,7 @@ namespace BoardGameTracker.Web
             var group = endpoints.MapGroup("authentication");
 
             group.MapGet(pattern: "/login", OnLogin).AllowAnonymous();
-            group.MapGet(pattern: "/logout", OnLogout);
+            group.MapPost(pattern: "/logout", OnLogout);
 
             return group;
         }
