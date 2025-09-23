@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Threading.Tasks;
 
 namespace BoardGameTracker.Web
 {
@@ -13,7 +14,7 @@ namespace BoardGameTracker.Web
             var group = endpoints.MapGroup("authentication");
 
             group.MapGet(pattern: "/login", OnLogin).AllowAnonymous();
-            group.MapPost(pattern: "/logout", OnLogout);
+            group.MapGet(pattern: "/logout", OnLogout);
 
             return group;
         }
@@ -31,7 +32,7 @@ namespace BoardGameTracker.Web
             },
             [
                 CookieAuthenticationDefaults.AuthenticationScheme,
-            OpenIdConnectDefaults.AuthenticationScheme
+                OpenIdConnectDefaults.AuthenticationScheme
             ]);
     }
 }

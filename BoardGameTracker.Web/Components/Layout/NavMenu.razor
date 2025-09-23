@@ -1,5 +1,7 @@
-﻿@* Navigationsmenü auf der linken Seite *@
-<nav class="flex shrink-0 flex-col space-y-6 overflow-y-auto bg-gray-800 p-6 text-gray-100 md:w-64 md:sticky md:top-0 md:h-screen">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+@* Navigationsmenü auf der linken Seite *@
+<nav class="flex shrink-0 flex-col space-y-6 overflow-y-auto bg-gray-800 p-6 text-gray-100 md:sticky md:top-0 md:h-screen md:w-64">
     @* Logo oder App-Name *@
     <div class="mb-10 flex-none text-center text-2xl font-semibold text-white md:text-left">
         BoardGameTacker
@@ -7,7 +9,20 @@
     @* Navigationslinks *@
     <ul class="flex-grow space-y-2">
         <li><a href="/" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Home</a></li>
-
+    </ul>
+    <ul class="flex-grow space-y-2">
+        <AuthorizeView>
+            <Authorized>
+                <li>
+                    <a href="/authentication/logout" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Logout</a>
+                </li>
+            </Authorized>
+            <NotAuthorized>
+                <li>
+                    <a href="/authentication/login" class="block rounded-lg px-4 py-2.5 transition duration-200 hover:bg-gray-700">Login</a>
+                </li>
+            </NotAuthorized>
+        </AuthorizeView>
     </ul>
 
     <Footer />

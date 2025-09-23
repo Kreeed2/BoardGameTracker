@@ -3,7 +3,6 @@ using BoardGameTracker.Web.Components;
 using BoardGameTracker.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -33,7 +32,7 @@ builder.Services.AddAuthentication(oidcScheme)
                 {
                     options.ClientId = "BoardGameTrackerWeb";
                     options.ResponseType = OpenIdConnectResponseType.Code;
-                    options.Scope.Add("boardgame:all");
+                    options.Scope.Add("microprofile-jwt");
                     options.RequireHttpsMetadata = false;
                     options.TokenValidationParameters.NameClaimType = JwtRegisteredClaimNames.Name;
                     options.SaveTokens = true;
