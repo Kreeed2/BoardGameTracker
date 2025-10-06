@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 
 namespace BoardGameTracker.Tests;
 
+[TestFixture]
 public class ApiTests
 {
     private HttpClient _httpClient;
@@ -14,6 +15,16 @@ public class ApiTests
     public async Task Setup()
     {
         _appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.BoardGameTracker_AppHost>();
+    }
+
+    [TearDown]
+    public async Task TearDown()
+    {
+        _httpClient?.Dispose();
+        if (_appHost is not null)
+        {
+            await _appHost.DisposeAsync();
+        }
     }
 
     [Test]
@@ -45,13 +56,16 @@ public class ApiTests
         var response = await _httpClient.PostAsJsonAsync("/api/Game", game);
         var new_game = await response.Content.ReadFromJsonAsync<Game>();
 
-        // Assert
-        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-        Assert.That(new_game, Is.Not.Null);
-        Assert.That(new_game.Name, Is.EqualTo("Catan"));
+        using (Assert.EnterMultipleScope())
+        {
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+            Assert.That(new_game, Is.Not.Null);
+            Assert.That(new_game!.Name, Is.EqualTo("Catan"));
+        }
 
         // Cleanup
-        await _httpClient.DeleteAsync($"/api/Game/{new_game.Id}");
+        await _httpClient.DeleteAsync($"/api/Game/{new_game.GameId}");
     }
 
     [Test]
@@ -66,14 +80,14 @@ public class ApiTests
         var new_game = await response.Content.ReadFromJsonAsync<Game>();
 
         // Act
-        var created_game = await _httpClient.GetFromJsonAsync<Game>($"/api/Game/{new_game.Id}");
+        var created_game = await _httpClient.GetFromJsonAsync<Game>($"/api/Game/{new_game.GameId}");
 
         // Assert
         Assert.That(created_game, Is.Not.Null);
         Assert.That(created_game.Name, Is.EqualTo("Catan"));
 
         // Cleanup
-        await _httpClient.DeleteAsync($"/api/Game/{new_game.Id}");
+        await _httpClient.DeleteAsync($"/api/Game/{new_game.GameId}");
     }
 
     [Test]
@@ -89,15 +103,15 @@ public class ApiTests
         var updated_game = new GameTransferObject { Name = "Ticket to Ride" };
 
         // Act
-        var update_response = await _httpClient.PutAsJsonAsync($"/api/Game/{new_game.Id}", updated_game);
-        var fetched_game = await _httpClient.GetFromJsonAsync<Game>($"/api/Game/{new_game.Id}");
+        var update_response = await _httpClient.PutAsJsonAsync($"/api/Game/{new_game.GameId}", updated_game);
+        var fetched_game = await _httpClient.GetFromJsonAsync<Game>($"/api/Game/{new_game.GameId}");
 
         // Assert
         Assert.That(update_response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         Assert.That(fetched_game.Name, Is.EqualTo("Ticket to Ride"));
 
         // Cleanup
-        await _httpClient.DeleteAsync($"/api/Game/{new_game.Id}");
+        await _httpClient.DeleteAsync($"/api/Game/{new_game.GameId}");
     }
 
     [Test]
@@ -112,8 +126,8 @@ public class ApiTests
         var new_game = await response.Content.ReadFromJsonAsync<Game>();
 
         // Act
-        var delete_response = await _httpClient.DeleteAsync($"/api/Game/{new_game.Id}");
-        var get_response = await _httpClient.GetAsync($"/api/Game/{new_game.Id}");
+        var delete_response = await _httpClient.DeleteAsync($"/api/Game/{new_game.GameId}");
+        var get_response = await _httpClient.GetAsync($"/api/Game/{new_game.GameId}");
 
         // Assert
         Assert.That(delete_response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
