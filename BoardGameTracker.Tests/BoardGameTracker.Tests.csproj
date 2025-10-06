@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BoardGameTracker.ApiService\BoardGameTracker.ApiService.csproj" />
     <ProjectReference Include="..\BoardGameTracker.AppHost\BoardGameTracker.AppHost.csproj" />
+    <ProjectReference Include="..\BoardGameTracker.Shared\BoardGameTracker.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
